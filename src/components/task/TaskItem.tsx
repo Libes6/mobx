@@ -1,4 +1,4 @@
-import {FC, ReactHTMLElement} from 'react';
+import {FC} from 'react';
 import {ITask} from "../../store/task.tsx";
 import { DeleteOutlined} from "@ant-design/icons";
 import * as React from "react";
@@ -12,13 +12,11 @@ const TaskItem:FC<ITaskItemProps> = ({item,completeTodo,deleteTodo}) => {
     const {name,isCompleted,id}=item
 
     const handleDelete =(event:React.MouseEvent<HTMLDivElement>)=>{
-        console.log(id)
         event.stopPropagation()
         deleteTodo(id)
     }
 
     const handleComplete =()=>{
-        console.log(id)
         completeTodo(id)
     }
     const renderIcon =()=>{

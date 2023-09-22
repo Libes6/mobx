@@ -12,7 +12,6 @@ class TaskStore{
     task=[{name:'Выучить уже React',isCompleted:false,id:1}];
     count=0
     get total(){
-        console.log(this.count)
         return this.task
     }
     get totalCount(){
@@ -31,7 +30,6 @@ class TaskStore{
     }
 
     completeTodo = (id:number)=>{
-        console.log(`complete`,this.task,id)
         this.task = this.task.map(task => (task.id === id ? { ...task, isCompleted: !task.isCompleted } : task))
 
     }

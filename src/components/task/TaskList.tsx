@@ -3,8 +3,8 @@ import taskStore from "../../store/task.tsx";
 import TaskItem from "./TaskItem.tsx";
 import {Button, notification} from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import {createContext, useMemo, useState} from "react";
-import {NotificationPlacement} from "antd/lib/notification/interface";
+import {useState} from "react";
+
 
 const TaskList =observer(()=>{
     const {total,totalCount,createTodo,completeTodo,deleteTodo}=taskStore
@@ -31,8 +31,6 @@ const TaskList =observer(()=>{
         }
         setTextTask('')
     }
-
-
     return (<>
             {contextHolder}
             <div>
