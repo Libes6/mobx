@@ -1,13 +1,12 @@
-import './App.css'
-import TaskList from "./components/task/TaskList.tsx";
+import './App.css';
+import { TaskList } from './components/task';
 
 function App() {
-
-  return (
-    <>
-       <TaskList/>
-    </>
-  )
+    return (
+        <>
+            <TaskList />
+        </>
+    );
 }
 
-export default App
+export default App;
