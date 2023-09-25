@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
+    "@types/node": "^20.6.5",
     "antd": "^5.9.2",
+    "axios": "^1.5.0",
     "mobx": "^6.10.2",
     "mobx-react-lite": "^4.0.4",
+    "mobx-utils": "^6.0.8",
     "prettier": "^3.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import { ITask } from '../../../../../store/task.tsx';
 import { clsMix } from '../../../../../lib/clsx/Clsx.ts';
 import { useTaskItem } from '../hook/useTaskItem.tsx';
+import { ITodoApi } from '../../../../../types/Todo/ITodo.ts';
 interface ITaskItemProps {
-    item: ITask;
-    completeTodo: (id: number) => void;
+    item: ITodoApi;
+    completeTodo: (id: number, isCompleted: boolean) => void;
     deleteTodo: (id: number) => void;
 }
 export const TaskItem: FC<ITaskItemProps> = ({
@@ -12,13 +12,13 @@ export const TaskItem: FC<ITaskItemProps> = ({
     completeTodo,
     deleteTodo,
 }) => {
-    const { name, isCompleted, id } = item;
+    const { text, isCompleted, id } = item;
     const { handleDelete, handleComplete, renderIcon } = useTaskItem({
         id,
+        isCompleted,
         deleteTodo,
         completeTodo,
     });
-
     return (
         <div className='task-item' onClick={() => handleComplete()}>
             <div
@@ -28,7 +28,7 @@ export const TaskItem: FC<ITaskItemProps> = ({
                     []
                 )}
             >
-                <p>{name}</p>
+                <p>{text}</p>
             </div>
             <div onClick={event => handleDelete(event)}>
                 {renderIcon()}

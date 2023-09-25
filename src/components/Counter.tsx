@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { observer } from 'mobx-react-lite';
-import counter from '../store/counter.tsx';
+import counter from '../store/counter.ts';
 
 const Counter: FC = observer(() => {
     const { count, total, increment, decrement } = counter;

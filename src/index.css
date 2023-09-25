@@ -97,3 +97,26 @@ button:focus-visible {
 .task-item-complete{
 
 }
+
+.task-item__tag-input{
+  width: 70px;
+}
+
+.task-item__tag{
+ display: flex;
+  gap: 10px;
+}
+.task-item__tag-item{
+  background: #888dea;
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: white;
+  &__active{
+
+  }
+}
+.tag-active{
+  background: #575de5;
+}
+
+

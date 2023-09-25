@@ -1,41 +1,79 @@
-import { action, computed, makeObservable, observable } from 'mobx';
+import { runInAction, makeAutoObservable } from 'mobx';
+import { TodoService } from '../service/TodoServise/TodoService.ts';
+import { ITagApi, ITodoApi } from '../types/Todo/ITodo.ts';
+import { TagTodoService } from '../service/TodoServise/TagTodoService.ts';
 
-export interface ITask {
-    name: string;
-    id: number;
-    isCompleted: boolean;
+interface ITaskStoreDefault {
+    error?: object;
+    isLoading: boolean;
+}
+interface ITaskStore extends ITaskStoreDefault {
+    item: ITodoApi[];
+}
+
+interface ITagStore extends ITaskStoreDefault {
+    item: ITagApi[];
 }
 class TaskStore {
-    task = [{ name: 'Выучить уже React', isCompleted: false, id: 1 }];
-    get total() {
+    task: ITaskStore = { item: [], isLoading: false };
+    tag: ITagStore = { item: [], isLoading: false };
+    get totalTask() {
         return this.task;
     }
+    get totalTag() {
+        return this.tag;
+    }
     constructor() {
-        makeObservable(this, {
-            task: observable,
-            total: computed,
-            createTodo: action,
-            deleteTodo: action,
-            completeTodo: action,
-        });
+        makeAutoObservable(this);
     }
 
-    completeTodo = (id: number) => {
-        this.task = this.task.map(task =>
-            task.id === id
-                ? { ...task, isCompleted: !task.isCompleted }
-                : task
+    loadTodo = () => {
+        this.task.isLoading = true;
+        return TodoService.getTodo()
+            .then(data => {
+                runInAction(() => {
+                    this.task.item = data;
+                });
+            })
+            .finally(() => {
+                runInAction(() => {
+                    this.task.isLoading = false;
+                });
+            });
+    };
+    completeTodo = (id: number, isCompleted: boolean) => {
+        TodoService.completeTodo(id, isCompleted).then(() =>
+            this.loadTodo()
         );
     };
-    createTodo = (values: string) => {
-        this.task.push({
-            name: values,
-            id: Number(this.task.length + 1),
-            isCompleted: false,
+    createTodo = (text: string) => {
+        runInAction(() => {
+            TodoService.addTodo({ text }).then(() => {
+                this.loadTodo();
+            });
         });
     };
     deleteTodo = (id: number) => {
-        this.task = this.task.filter(task => task.id !== id);
+        runInAction(() => {
+            TodoService.deleteTodo(id).then(() => {
+                this.loadTodo();
+            });
+        });
+    };
+
+    loadTagTodo = () => {
+        this.tag.isLoading = true;
+        return TagTodoService.getTag()
+            .then(data => {
+                runInAction(() => {
+                    this.tag.item = data;
+                });
+            })
+            .finally(() => {
+                runInAction(() => {
+                    this.tag.isLoading = false;
+                });
+            });
     };
 }
 

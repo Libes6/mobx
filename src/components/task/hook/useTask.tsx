@@ -1,11 +1,18 @@
 import { notification } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import uiTag from '../../../store/uiTag.tsx';
 interface IUseTaskProps {
     createTodo: (text: string) => void;
+    loadTodo: () => void;
 }
-export const useTask = ({ createTodo }: IUseTaskProps) => {
+export const useTask = ({ createTodo, loadTodo }: IUseTaskProps) => {
     const [api, contextHolder] = notification.useNotification();
     const [textTask, setTextTask] = useState('');
+    const { totalUiTag } = uiTag;
+    console.log(totalUiTag);
+    useEffect(() => {
+        loadTodo();
+    }, []);
     const openNotificationSuccess = (message: string) => {
         api.success({
             message: `Notification`,
