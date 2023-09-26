@@ -1,17 +1,21 @@
-import { useTaskType } from '../hook/useTaskType.ts';
+import { useTaskTag } from '../hook/useTaskTag.ts';
 import { observer } from 'mobx-react-lite';
 
 import { Skeleton } from 'antd';
 import { clsMix } from '../../../../../lib/clsx/Clsx.ts';
+import { TaskTagInput } from '../components/taskTagInput/public/TaskTagInput.tsx';
+import { CloseOutlined } from '@ant-design/icons';
 
-export const TaskType = observer(() => {
-    const { totalTag, totalUiTag, handleAddTag } = useTaskType();
+export const TaskTag = observer(() => {
+    const { totalTag, totalUiTag, handleAddTag, handleDeleteTag } =
+        useTaskTag();
 
     if (totalTag.isLoading) {
         return <Skeleton paragraph={{ rows: 1 }} />;
     }
     return (
-        <div className='task-item__tag'>
+        <div className='tag-list'>
+            <TaskTagInput />
             {totalTag.item.map((item, index) => {
                 const currentActiveStyle = totalUiTag.includes(
                     item.id
@@ -20,14 +24,20 @@ export const TaskType = observer(() => {
                     <div
                         onClick={() => handleAddTag(item.id)}
                         className={clsMix(
-                            'task-item__tag-item',
+                            'tag-item',
                             { 'tag-active': currentActiveStyle },
                             []
                         )}
                         key={index}
                     >
                         <span>{item.text}</span>
-                        <span></span>
+                        <span
+                            onClick={event =>
+                                handleDeleteTag(item.id, event)
+                            }
+                        >
+                            <CloseOutlined className='icon-action' />
+                        </span>
                     </div>
                 );
             })}

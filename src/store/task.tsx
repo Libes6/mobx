@@ -63,6 +63,7 @@ class TaskStore {
 
     loadTagTodo = () => {
         this.tag.isLoading = true;
+
         return TagTodoService.getTag()
             .then(data => {
                 runInAction(() => {
@@ -74,6 +75,21 @@ class TaskStore {
                     this.tag.isLoading = false;
                 });
             });
+    };
+
+    addTagTodo = (text: string) => {
+        runInAction(() => {
+            TagTodoService.addTag(text).then(() => {
+                this.loadTagTodo();
+            });
+        });
+    };
+    deleteTagTodo = (id: number) => {
+        runInAction(() => {
+            TagTodoService.deleteTag(id).then(() => {
+                this.loadTagTodo();
+            });
+        });
     };
 }
 

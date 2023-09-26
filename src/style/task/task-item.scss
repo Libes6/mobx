@@ -1,0 +1,21 @@
+.task-list{
+margin-top: 20px;
+
+}
+
+.task-item{
+  margin-bottom: 12px;
+}
+
+.task-item__title{
+text-align: start;
+}
+
+.task-item__tag{
+  max-width: 200px;
+  display: flex;
+  gap: 10px;
+}
+.task-item__icon-close{
+  cursor: pointer;
+}

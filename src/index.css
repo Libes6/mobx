@@ -50,54 +50,15 @@ h1 {
     background-color: #f9f9f9;
   }
 }
-.header{
-  max-width: 500px;
-}
-
-.wrapper{
-  height: 50vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.elem{
-  height: 200px;
-  width: 100vw;
-  background: #747bff;
-}
 
 
 .title-complete{
   text-decoration: line-through;;
 }
-.task-item-complete{
 
-}
 
-.task-item__tag-input{
-  width: 70px;
-}
 
-.task-item__tag{
- display: flex;
-  gap: 10px;
-}
-.task-item__tag-item{
-  background: #888dea;
-  padding: 4px 8px;
-  border-radius: 6px;
-  color: white;
-  &__active{
+/*теги*/
 
-  }
-}
-.tag-active{
-  background: #575de5;
-}
-.task-item__tag-list{
-  display: flex;
-  gap: 10px;
-}
 
 

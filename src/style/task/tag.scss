@@ -1,0 +1,22 @@
+.tag-list{
+  display: flex;
+  gap: 10px;
+}
+
+.tag-item{
+  display: flex;
+  gap: 6px;
+  background: #888dea;
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: white;
+}
+
+.tag-active{
+  background: #575de5;
+}
+.tag-input{
+  width: 60px;
+  height: 100%;
+
+}

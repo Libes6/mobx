@@ -3,7 +3,7 @@ import taskStore from '../../../store/task.tsx';
 import { Button, Col, Empty, Row, Spin } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 
-import { TaskItem, TaskSearch, TaskType } from '../components/';
+import { TaskItem, TaskSearch, TaskTag } from '../components/';
 import { useTask } from '../hook/useTask.tsx';
 
 export const TaskList = observer(() => {
@@ -45,7 +45,7 @@ export const TaskList = observer(() => {
         }
         return (
             <Col span={18}>
-                <TaskType />
+                <TaskTag />
             </Col>
         );
     };
@@ -81,8 +81,7 @@ export const TaskList = observer(() => {
                         />
                     </Col>
                 </Row>
-
-                {renderTask()}
+                <div className='task-list'>{renderTask()}</div>
             </div>
         </>
     );

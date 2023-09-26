@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import { clsMix } from '../../../../../lib/clsx/Clsx.ts';
-import { useTaskItem } from '../hook/useTaskItem.tsx';
+import { useTaskItem } from '../hook/useTaskItem.ts';
 import { ITaskItemProps } from '../interface/ITaskItem.ts';
 import { Col, Row } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 
 export const TaskItem: FC<ITaskItemProps> = ({
     item,
@@ -10,15 +11,24 @@ export const TaskItem: FC<ITaskItemProps> = ({
     deleteTodo,
 }) => {
     const { text, isCompleted, id, tag } = item;
-    const { handleDelete, handleComplete, renderIcon } = useTaskItem({
+    const { handleDelete, handleComplete } = useTaskItem({
         id,
         isCompleted,
         deleteTodo,
         completeTodo,
     });
 
+    const renderIcon = () => {
+        return (
+            <DeleteOutlined
+                twoToneColor={'#eb2f96'}
+                className='task-item__icon-close'
+            />
+        );
+    };
     return (
         <Row
+            className='task-item'
             gutter={[10, 10]}
             justify={'space-between'}
             onClick={() => handleComplete()}
@@ -31,9 +41,9 @@ export const TaskItem: FC<ITaskItemProps> = ({
                     []
                 )}
             >
-                <p>{text}</p>
+                {text}
             </Col>
-            <Col span={10} className='task-item__tag-list'>
+            <Col span={10} className='task-item__tag'>
                 {tag?.map((item, index) => (
                     <div key={index}>{item.text}</div>
                 ))}
