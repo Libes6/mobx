@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import taskStore from '../../../store/task.tsx';
-import { Button, Col, Row, Spin } from 'antd';
+import { Button, Col, Empty, Row, Spin } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 
-import { TaskItem, TaskType } from '../components/';
+import { TaskItem, TaskSearch, TaskType } from '../components/';
 import { useTask } from '../hook/useTask.tsx';
 
 export const TaskList = observer(() => {
@@ -14,12 +14,20 @@ export const TaskList = observer(() => {
         deleteTodo,
         loadTodo,
     } = taskStore;
-    const { textTask, setTextTask, contextHolder, handleCreate } =
-        useTask({ createTodo, loadTodo });
+    const {
+        textTask,
+        setTextTask,
+        contextHolder,
+        handleCreate,
+        handleSearch,
+    } = useTask({ createTodo, loadTodo });
 
     const renderTask = () => {
         if (totalTask.isLoading) {
             return <Spin size='large' />;
+        }
+        if (totalTask.item.length === 0) {
+            return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
         }
         return totalTask.item.map(item => (
             <TaskItem
@@ -36,7 +44,7 @@ export const TaskList = observer(() => {
             return null;
         }
         return (
-            <Col span={24}>
+            <Col span={18}>
                 <TaskType />
             </Col>
         );
@@ -46,9 +54,10 @@ export const TaskList = observer(() => {
             {contextHolder}
             <div>
                 <h1>Постигаю Mob x </h1>
-                <Row gutter={[10, 10]}>
+                <Row gutter={[0, 10]} className='task-menu'>
                     <Col span={24}>
                         <TextArea
+                            className='task-menu__input-text'
                             value={textTask}
                             onChange={event =>
                                 setTextTask(event.target.value)
@@ -62,6 +71,14 @@ export const TaskList = observer(() => {
                         <Button onClick={handleCreate}>
                             Создать
                         </Button>
+                    </Col>
+
+                    <Col span={24}>
+                        <TaskSearch
+                            className='task-menu__input-search'
+                            allowClear
+                            onSearch={value => handleSearch(value)}
+                        />
                     </Col>
                 </Row>
 

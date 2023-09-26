@@ -1,18 +1,16 @@
 import { notification } from 'antd';
 import { useEffect, useState } from 'react';
 import uiTag from '../../../store/uiTag.tsx';
-interface IUseTaskProps {
-    createTodo: (text: string) => void;
-    loadTodo: () => void;
-}
+import { IUseTaskProps } from '../interface/Itask.ts';
+
 export const useTask = ({ createTodo, loadTodo }: IUseTaskProps) => {
     const [api, contextHolder] = notification.useNotification();
     const [textTask, setTextTask] = useState('');
-    const { totalUiTag } = uiTag;
-    console.log(totalUiTag);
+    const [search, setSearch] = useState('');
+    const { totalUiTag, clearTag } = uiTag;
     useEffect(() => {
-        loadTodo();
-    }, []);
+        loadTodo(search);
+    }, [search]);
     const openNotificationSuccess = (message: string) => {
         api.success({
             message: `Notification`,
@@ -27,13 +25,26 @@ export const useTask = ({ createTodo, loadTodo }: IUseTaskProps) => {
     };
     const handleCreate = () => {
         if (textTask !== '') {
-            createTodo(textTask);
+            createTodo({ text: textTask, tag: totalUiTag });
             openNotificationSuccess('Успешно');
+            clearTag();
         } else {
             openNotificationError('Нельзя создать пустую задачу');
         }
         setTextTask('');
     };
+    const handleSearch = (search: string) => {
+        setSearch(search);
+    };
 
-    return { textTask, setTextTask, contextHolder, handleCreate };
+    const onChangeSearch = () => {};
+
+    return {
+        textTask,
+        contextHolder,
+        setTextTask,
+        handleCreate,
+        onChangeSearch,
+        handleSearch,
+    };
 };

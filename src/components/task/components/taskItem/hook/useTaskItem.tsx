@@ -1,12 +1,7 @@
 import * as React from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
+import { IUseTaskItem } from '../interface/ITaskItem.ts';
 
-interface IUseTaskItem {
-    id: number;
-    isCompleted: boolean;
-    deleteTodo: (id: number) => void;
-    completeTodo: (id: number, isCompleted: boolean) => void;
-}
 export const useTaskItem = ({
     id,
     isCompleted,

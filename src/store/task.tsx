@@ -1,6 +1,6 @@
 import { runInAction, makeAutoObservable } from 'mobx';
 import { TodoService } from '../service/TodoServise/TodoService.ts';
-import { ITagApi, ITodoApi } from '../types/Todo/ITodo.ts';
+import { ITagApi, ITodoAdd, ITodoApi } from '../types/Todo/ITodo.ts';
 import { TagTodoService } from '../service/TodoServise/TagTodoService.ts';
 
 interface ITaskStoreDefault {
@@ -27,9 +27,9 @@ class TaskStore {
         makeAutoObservable(this);
     }
 
-    loadTodo = () => {
+    loadTodo = (search = '') => {
         this.task.isLoading = true;
-        return TodoService.getTodo()
+        return TodoService.getTodo(search)
             .then(data => {
                 runInAction(() => {
                     this.task.item = data;
@@ -46,9 +46,9 @@ class TaskStore {
             this.loadTodo()
         );
     };
-    createTodo = (text: string) => {
+    createTodo = (data: ITodoAdd) => {
         runInAction(() => {
-            TodoService.addTodo({ text }).then(() => {
+            TodoService.addTodo(data).then(() => {
                 this.loadTodo();
             });
         });

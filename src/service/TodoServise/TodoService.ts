@@ -2,10 +2,13 @@ import { instance } from '../../api/api.interceptor.ts';
 import { ITodoAdd } from '../../types/Todo/ITodo.ts';
 const TODO_URL = '/todo';
 export const TodoService = {
-    async getTodo() {
+    async getTodo(search: string) {
         const response = await instance({
             url: `${TODO_URL}`,
             method: 'GET',
+            params: {
+                search,
+            },
         });
         return response.data;
     },

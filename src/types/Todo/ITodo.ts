@@ -5,7 +5,9 @@ interface ITodoRecord {
 }
 export interface ITodoApi extends ITodoRecord {
     isCompleted: boolean;
-    tag?: [];
+    tag?: { text: string }[];
 }
 export interface ITagApi extends ITodoRecord {}
-export interface ITodoAdd extends Pick<ITodoApi, 'text'> {}
+export interface ITodoAdd extends Pick<ITodoApi, 'text'> {
+    tag: number[];
+}

@@ -1,22 +1,17 @@
 import { useTaskType } from '../hook/useTaskType.ts';
 import { observer } from 'mobx-react-lite';
 
-import { Col, Input, Row, Skeleton, Space } from 'antd';
-import CheckableTag from 'antd/lib/tag/CheckableTag';
+import { Skeleton } from 'antd';
 import { clsMix } from '../../../../../lib/clsx/Clsx.ts';
 
 export const TaskType = observer(() => {
-    const { totalTag, totalUiTag, handleAddTag, handleDeleteTag } =
-        useTaskType({});
+    const { totalTag, totalUiTag, handleAddTag } = useTaskType();
 
     if (totalTag.isLoading) {
-        return <Skeleton />;
+        return <Skeleton paragraph={{ rows: 1 }} />;
     }
     return (
         <div className='task-item__tag'>
-            {/*<div className='task-item__tag-input'>*/}
-            {/*    <Input />*/}
-            {/*</div>*/}
             {totalTag.item.map((item, index) => {
                 const currentActiveStyle = totalUiTag.includes(
                     item.id

@@ -11,6 +11,7 @@ class UiTag {
             tag: observable,
             incrementTag: action,
             decrementTag: action,
+            clearTag: action,
             totalUiTag: computed,
         });
     }
@@ -25,6 +26,9 @@ class UiTag {
     };
     decrementTag = (values: number) => {
         this.tag.filter(item => item !== values);
+    };
+    clearTag = () => {
+        this.tag = [];
     };
 }
 
