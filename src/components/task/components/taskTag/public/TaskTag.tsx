@@ -32,7 +32,9 @@ export const TaskTag = observer(() => {
                             )}
                             key={index}
                         >
-                            <span>{item.text}</span>
+                            <span className='tag-item__title'>
+                                {item.text}
+                            </span>
                             <span
                                 onClick={event =>
                                     handleDeleteTag(item.id, event)

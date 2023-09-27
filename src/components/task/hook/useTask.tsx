@@ -1,5 +1,5 @@
 import { notification } from 'antd';
-import { useEffect, useState } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 import uiTag from '../../../store/uiTag.tsx';
 import { IUseTaskProps } from '../interface/Itask.ts';
 
@@ -34,7 +34,7 @@ export const useTask = ({ createTodo, loadTodo }: IUseTaskProps) => {
         setTextTask('');
     };
     const handleSearch = (search: string) => {
-        setSearch(search);
+        startTransition(() => setSearch(search));
     };
 
     const onChangeSearch = () => {};

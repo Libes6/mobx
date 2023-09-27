@@ -5,6 +5,11 @@ margin-top: 20px;
 
 .task-item{
   margin-bottom: 12px;
+  padding: 4px 8px;
+  &:hover{
+    background: ghostwhite;
+
+  }
 }
 
 .task-item__title{
