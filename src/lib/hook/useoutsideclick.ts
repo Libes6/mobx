@@ -12,9 +12,10 @@ type TypeOut = {
     isShow: boolean;
     setIsShow: Dispatch<SetStateAction<boolean>>;
 };
+
 export const useOutside = (initialVisible: boolean): TypeOut => {
     const [isShow, setIsShow] = useState(initialVisible);
-    const ref = useRef<HTMLElement>(null);
+    const ref = useRef<HTMLDivElement>(null);
     const handleClickOutside = (event: MouseEvent) => {
         if (
             ref.current &&
@@ -26,5 +27,5 @@ export const useOutside = (initialVisible: boolean): TypeOut => {
     useEffect(() => {
         document.addEventListener('click', handleClickOutside, true);
     }, []);
-    return { isShow, setIsShow, ref };
+    return { ref, isShow, setIsShow };
 };

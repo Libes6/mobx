@@ -1,19 +1,9 @@
 import { runInAction, makeAutoObservable } from 'mobx';
 import { TodoService } from '../service/TodoServise/TodoService.ts';
-import { ITagApi, ITodoAdd, ITodoApi } from '../types/Todo/ITodo.ts';
+import { ITodoAdd } from '../types/Todo/ITodo.ts';
 import { TagTodoService } from '../service/TodoServise/TagTodoService.ts';
+import { ITagStore, ITaskStore } from './interface/IStore.task.ts';
 
-interface ITaskStoreDefault {
-    error?: object;
-    isLoading: boolean;
-}
-interface ITaskStore extends ITaskStoreDefault {
-    item: ITodoApi[];
-}
-
-interface ITagStore extends ITaskStoreDefault {
-    item: ITagApi[];
-}
 class TaskStore {
     task: ITaskStore = { item: [], isLoading: false };
     tag: ITagStore = { item: [], isLoading: false };

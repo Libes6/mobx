@@ -26,9 +26,11 @@ export const TaskList = observer(() => {
         if (totalTask.isLoading) {
             return <Spin size='large' />;
         }
+
         if (totalTask.item.length === 0) {
             return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
         }
+
         return totalTask.item.map(item => (
             <TaskItem
                 key={item.id}
@@ -43,12 +45,14 @@ export const TaskList = observer(() => {
         if (textTask === '') {
             return null;
         }
+
         return (
             <Col span={18}>
                 <TaskTag />
             </Col>
         );
     };
+
     return (
         <>
             {contextHolder}

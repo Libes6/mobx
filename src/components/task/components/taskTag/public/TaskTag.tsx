@@ -13,34 +13,44 @@ export const TaskTag = observer(() => {
     if (totalTag.isLoading) {
         return <Skeleton paragraph={{ rows: 1 }} />;
     }
+
+    const renderTag = () => {
+        return (
+            <>
+                {totalTag.item.map((item, index) => {
+                    const currentActiveStyle = totalUiTag.includes(
+                        item.id
+                    );
+
+                    return (
+                        <div
+                            onClick={() => handleAddTag(item.id)}
+                            className={clsMix(
+                                'tag-item',
+                                { 'tag-active': currentActiveStyle },
+                                []
+                            )}
+                            key={index}
+                        >
+                            <span>{item.text}</span>
+                            <span
+                                onClick={event =>
+                                    handleDeleteTag(item.id, event)
+                                }
+                            >
+                                <CloseOutlined className='icon-action' />
+                            </span>
+                        </div>
+                    );
+                })}
+            </>
+        );
+    };
+
     return (
         <div className='tag-list'>
             <TaskTagInput />
-            {totalTag.item.map((item, index) => {
-                const currentActiveStyle = totalUiTag.includes(
-                    item.id
-                );
-                return (
-                    <div
-                        onClick={() => handleAddTag(item.id)}
-                        className={clsMix(
-                            'tag-item',
-                            { 'tag-active': currentActiveStyle },
-                            []
-                        )}
-                        key={index}
-                    >
-                        <span>{item.text}</span>
-                        <span
-                            onClick={event =>
-                                handleDeleteTag(item.id, event)
-                            }
-                        >
-                            <CloseOutlined className='icon-action' />
-                        </span>
-                    </div>
-                );
-            })}
+            {renderTag()}
         </div>
     );
 });

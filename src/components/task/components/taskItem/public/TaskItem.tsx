@@ -10,7 +10,7 @@ export const TaskItem: FC<ITaskItemProps> = ({
     completeTodo,
     deleteTodo,
 }) => {
-    const { text, isCompleted, id, tag } = item;
+    const { text, id, tag, isCompleted } = item;
     const { handleDelete, handleComplete } = useTaskItem({
         id,
         isCompleted,
@@ -18,20 +18,12 @@ export const TaskItem: FC<ITaskItemProps> = ({
         completeTodo,
     });
 
-    const renderIcon = () => {
-        return (
-            <DeleteOutlined
-                twoToneColor={'#eb2f96'}
-                className='task-item__icon-close'
-            />
-        );
-    };
     return (
         <Row
             className='task-item'
             gutter={[10, 10]}
             justify={'space-between'}
-            onClick={() => handleComplete()}
+            onClick={handleComplete}
         >
             <Col
                 span={12}
@@ -48,8 +40,11 @@ export const TaskItem: FC<ITaskItemProps> = ({
                     <div key={index}>{item.text}</div>
                 ))}
             </Col>
-            <Col span={2} onClick={event => handleDelete(event)}>
-                {renderIcon()}
+            <Col span={2} onClick={handleDelete}>
+                <DeleteOutlined
+                    twoToneColor={'#eb2f96'}
+                    className='icon-action'
+                />
             </Col>
         </Row>
     );
